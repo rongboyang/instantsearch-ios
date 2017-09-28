@@ -31,7 +31,8 @@ lane :deploy do |options|
 		verbose: true,
 		allow_warnings: true
 	)
-	increment_version_number(
+	previous_version = get_version_number
+	new_version = increment_version_number(
   		bump_type: options[:type]
 	)
 	new_build_number = version_bump_podspec(
@@ -62,6 +63,15 @@ lane :upgrade_swift do |options|
 	version = options[:version]
 	sh("echo #{version} > ../.swift-version")
 	puts "\e[31m\e[5mDon't forget to update the swift version in the dependecies: .podspecs & cartfile'\e[0m"
+end
+
+lane :update_readme do 
+	# add the ~> to double checkx
+	current_version = get_version_number()
+	puts "Update ReadMe with current version number: #{currentVersion}"
+	readme = File.read("../Readme.md")
+	readme.gsub! previous_version, current_version
+	File.write("../Readme.md", readme)
 end
 
 def prepare_git(branch)
