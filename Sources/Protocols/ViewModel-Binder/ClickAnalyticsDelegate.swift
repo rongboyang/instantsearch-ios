@@ -16,6 +16,10 @@ public protocol ClickAnalyticsDelegate: class {
                             position: Int,
                             queryID: String)
     
+    func clicked(eventName: String,
+                 indexName: String,
+                 filters: [String])
+    
 }
 
 extension Insights: ClickAnalyticsDelegate {
@@ -31,5 +35,14 @@ extension Insights: ClickAnalyticsDelegate {
                            position: position,
                            queryID: queryID,
                            userToken: .none)
+    }
+    
+    public func clicked(eventName: String,
+                        indexName: String,
+                        filters: [String]) {
+        clicked(eventName: eventName,
+                indexName: indexName,
+                filters: filters,
+                userToken: .none)
     }
 }

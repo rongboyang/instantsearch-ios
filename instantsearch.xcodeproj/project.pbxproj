@@ -9,7 +9,10 @@
 /* Begin PBXBuildFile section */
 		287D0A6E1C4B73BD004566D6 /* WidgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287D0A6D1C4B73BD004566D6 /* WidgetTests.swift */; };
 		28F828881C494B2C00330CF4 /* InstantSearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F8287D1C494B2C00330CF4 /* InstantSearch.framework */; };
-		AF263882221C5BE50038483D /* AnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF263880221C5BB80038483D /* AnalyticsTests.swift */; };
+		AF263882221C5BE50038483D /* HitsViewAnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF263880221C5BB80038483D /* HitsViewAnalyticsTests.swift */; };
+		AF263884221DC31B0038483D /* ClickAnalyticsTrackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF263883221DC31B0038483D /* ClickAnalyticsTrackable.swift */; };
+		AF263886221ED0DC0038483D /* RefinementViewModelTrackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF263885221ED0DC0038483D /* RefinementViewModelTrackable.swift */; };
+		AF263889221EF3600038483D /* RefinementViewModelAnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF263887221EF3320038483D /* RefinementViewModelAnalyticsTests.swift */; };
 		AF75602C22171775008C5DDF /* InstantSearchInsights.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF75602B22171774008C5DDF /* InstantSearchInsights.framework */; };
 		AF75602E221AC6B9008C5DDF /* ClickAnalyticsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF75602D221AC6B9008C5DDF /* ClickAnalyticsDelegate.swift */; };
 		AF756030221B25E7008C5DDF /* SearchResultsManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF75602F221B25E7008C5DDF /* SearchResultsManageable.swift */; };
@@ -115,7 +118,10 @@
 		28F8287D1C494B2C00330CF4 /* InstantSearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = InstantSearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		28F828821C494B2C00330CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		28F828871C494B2C00330CF4 /* InstantSearchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstantSearchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AF263880221C5BB80038483D /* AnalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsTests.swift; sourceTree = "<group>"; };
+		AF263880221C5BB80038483D /* HitsViewAnalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HitsViewAnalyticsTests.swift; sourceTree = "<group>"; };
+		AF263883221DC31B0038483D /* ClickAnalyticsTrackable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickAnalyticsTrackable.swift; sourceTree = "<group>"; };
+		AF263885221ED0DC0038483D /* RefinementViewModelTrackable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefinementViewModelTrackable.swift; sourceTree = "<group>"; };
+		AF263887221EF3320038483D /* RefinementViewModelAnalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefinementViewModelAnalyticsTests.swift; sourceTree = "<group>"; };
 		AF75602B22171774008C5DDF /* InstantSearchInsights.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InstantSearchInsights.framework; path = Carthage/Build/iOS/InstantSearchInsights.framework; sourceTree = "<group>"; };
 		AF75602D221AC6B9008C5DDF /* ClickAnalyticsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickAnalyticsDelegate.swift; sourceTree = "<group>"; };
 		AF75602F221B25E7008C5DDF /* SearchResultsManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsManageable.swift; sourceTree = "<group>"; };
@@ -260,7 +266,8 @@
 				E2AFE5641ED49B2C00B6A5A7 /* Helpers */,
 				E25FB0A21ECF550C006B8CED /* Info.plist */,
 				287D0A6D1C4B73BD004566D6 /* WidgetTests.swift */,
-				AF263880221C5BB80038483D /* AnalyticsTests.swift */,
+				AF263880221C5BB80038483D /* HitsViewAnalyticsTests.swift */,
+				AF263887221EF3320038483D /* RefinementViewModelAnalyticsTests.swift */,
 				E25FB0791ECD86E8006B8CED /* RefinementMenuViewModelTests.swift */,
 				E2231E931EC9DBC4002FCF82 /* ConfigureInstantSearchTests.swift */,
 				E2A476F81EC5DEDE007CA367 /* ObjectiveCBridgingTests.m */,
@@ -484,6 +491,8 @@
 				E27C16411E9394250091D79E /* Helpers.swift */,
 				E27A7BF01E97931E005B2506 /* ViewModelFetcher.swift */,
 				AF75602F221B25E7008C5DDF /* SearchResultsManageable.swift */,
+				AF263883221DC31B0038483D /* ClickAnalyticsTrackable.swift */,
+				AF263885221ED0DC0038483D /* RefinementViewModelTrackable.swift */,
 			);
 			path = "Models and Helpers";
 			sourceTree = "<group>";
@@ -686,6 +695,7 @@
 				E2D589121FBB295700526C33 /* SearchViewModel.swift in Sources */,
 				E2738FBD1E9BD9ED002C002D /* StatsViewModel.swift in Sources */,
 				E25F5C871FCEF3B5002C8A8D /* SearcherId.swift in Sources */,
+				AF263886221ED0DC0038483D /* RefinementViewModelTrackable.swift in Sources */,
 				E2CA327C1EA77BC90057A3D3 /* HitsController.swift in Sources */,
 				E25F5C8D1FCEF3EA002C8A8D /* MultiHitsTableViewController.swift in Sources */,
 				E28B07E41EAF9FF2003AAE47 /* RefinementTableViewController.swift in Sources */,
@@ -709,6 +719,7 @@
 				E233BC011EBA43FF00F5F5E1 /* TwoValuesSwitchWidget.swift in Sources */,
 				E2738FC51E9CC3E0002C002D /* RefinementMenuViewDelegate.swift in Sources */,
 				E27C164D1E9394250091D79E /* Helpers.swift in Sources */,
+				AF263884221DC31B0038483D /* ClickAnalyticsTrackable.swift in Sources */,
 				E27C16421E9394250091D79E /* RefinementTableWidget.swift in Sources */,
 				E2738FCF1E9CDE32002C002D /* NumericControlViewModel.swift in Sources */,
 				E2738FCD1E9CDE04002C002D /* NumericControlViewDelegate.swift in Sources */,
@@ -744,10 +755,11 @@
 			files = (
 				E2231E951EC9DC0D002FCF82 /* ConfigureInstantSearchTests.swift in Sources */,
 				287D0A6E1C4B73BD004566D6 /* WidgetTests.swift in Sources */,
-				AF263882221C5BE50038483D /* AnalyticsTests.swift in Sources */,
+				AF263882221C5BE50038483D /* HitsViewAnalyticsTests.swift in Sources */,
 				E2A476FA1EC5DFC1007CA367 /* ObjectiveCBridgingTests.m in Sources */,
 				E2AFE5661ED49B3900B6A5A7 /* FatalError.swift in Sources */,
 				E2A476FE1EC60BD7007CA367 /* CustomWidget.m in Sources */,
+				AF263889221EF3600038483D /* RefinementViewModelAnalyticsTests.swift in Sources */,
 				E25FB07A1ECD86E8006B8CED /* RefinementMenuViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

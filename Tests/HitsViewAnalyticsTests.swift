@@ -1,5 +1,5 @@
 //
-//  AnalyticsTests.swift
+//  HitsViewAnalyticsTests.swift
 //  InstantSearch
 //
 //  Created by Vladislav Fitc on 19/02/2019.
@@ -10,7 +10,7 @@ import XCTest
 import InstantSearchCore
 import InstantSearchClient
 
-class AnalyticsTests: XCTestCase {
+class HitsViewAnalyticsTests: XCTestCase {
     
     func testTableWidgetnCAEventCapturing() {
         
@@ -20,12 +20,12 @@ class AnalyticsTests: XCTestCase {
         
         widget.enableClickAnalytics = true
         widget.index = "testIndex"
-        widget.hitClickEventName = "testEventName"
+        widget.clickEventName = "testEventName"
         
         let viewModel = HitsViewModel(view: widget)
         let caTestHelper = TestClickAnalyticsHelper()
         
-        caTestHelper.handler = { eventName, indexName, objectID, position, queryID in
+        caTestHelper.afterSearchHandler = { eventName, indexName, objectID, position, queryID in
             XCTAssertEqual(eventName, "testEventName")
             XCTAssertEqual(indexName, "testIndex")
             XCTAssertEqual(objectID, "testObjectID")
@@ -59,12 +59,12 @@ class AnalyticsTests: XCTestCase {
         
         widget.enableClickAnalytics = true
         widget.index = "testIndex"
-        widget.hitClickEventName = "testEventName"
+        widget.clickEventName = "testEventName"
         
         let viewModel = HitsViewModel(view: widget)
         let caTestHelper = TestClickAnalyticsHelper()
         
-        caTestHelper.handler = { eventName, indexName, objectID, position, queryID in
+        caTestHelper.afterSearchHandler = { eventName, indexName, objectID, position, queryID in
             XCTAssertEqual(eventName, "testEventName")
             XCTAssertEqual(indexName, "testIndex")
             XCTAssertEqual(objectID, "testObjectID")
@@ -110,7 +110,7 @@ class AnalyticsTests: XCTestCase {
         
         let caTestHelper = TestClickAnalyticsHelper()
         
-        caTestHelper.handler = { eventName, indexName, objectID, position, queryID in
+        caTestHelper.afterSearchHandler = { eventName, indexName, objectID, position, queryID in
             switch eventName {
             case "testEventName1":
                 XCTAssertEqual(indexName, "testIndex1")
@@ -184,7 +184,7 @@ class AnalyticsTests: XCTestCase {
         
         let caTestHelper = TestClickAnalyticsHelper()
         
-        caTestHelper.handler = { eventName, indexName, objectID, position, queryID in
+        caTestHelper.afterSearchHandler = { eventName, indexName, objectID, position, queryID in
             switch eventName {
             case "testEventName1":
                 XCTAssertEqual(indexName, "testIndex1")
@@ -245,13 +245,13 @@ class AnalyticsTests: XCTestCase {
         
         widget.enableClickAnalytics = true
         widget.index = "testIndex"
-        widget.hitClickEventName = "testEventName"
+        widget.clickEventName = "testEventName"
         
         let viewModel = HitsViewModel(view: widget)
         widget.viewModel = viewModel
         let caTestHelper = TestClickAnalyticsHelper()
         
-        caTestHelper.handler = { eventName, indexName, objectID, position, queryID in
+        caTestHelper.afterSearchHandler = { eventName, indexName, objectID, position, queryID in
             XCTAssertEqual(eventName, "testEventName")
             XCTAssertEqual(indexName, "testIndex")
             XCTAssertEqual(objectID, "testObjectID")
@@ -290,13 +290,13 @@ class AnalyticsTests: XCTestCase {
         
         widget.enableClickAnalytics = true
         widget.index = "testIndex"
-        widget.hitClickEventName = "testEventName"
+        widget.clickEventName = "testEventName"
         
         let viewModel = HitsViewModel(view: widget)
         widget.viewModel = viewModel
         let caTestHelper = TestClickAnalyticsHelper()
         
-        caTestHelper.handler = { eventName, indexName, objectID, position, queryID in
+        caTestHelper.afterSearchHandler = { eventName, indexName, objectID, position, queryID in
             XCTAssertEqual(eventName, "testEventName")
             XCTAssertEqual(indexName, "testIndex")
             XCTAssertEqual(objectID, "testObjectID")
@@ -326,7 +326,7 @@ class AnalyticsTests: XCTestCase {
         waitForExpectations(timeout: 2, handler: .none)
         
     }
-
+    
     
 }
 
@@ -353,14 +353,20 @@ class TestSearchResultsManager: SearchResultsManageable {
 
 class TestClickAnalyticsHelper: ClickAnalyticsDelegate {
     
-    var handler: ((String, String, String, Int, String) -> Void)?
+    
+    var afterSearchHandler: ((String, String, String, Int, String) -> Void)?
+    var filterHandler: ((String, String, [String]) -> Void)?
     
     func clickedAfterSearch(eventName: String,
                             indexName: String,
                             objectID: String,
                             position: Int,
                             queryID: String) {
-        handler?(eventName, indexName, objectID, position, queryID)
+        afterSearchHandler?(eventName, indexName, objectID, position, queryID)
+    }
+    
+    func clicked(eventName: String, indexName: String, filters: [String]) {
+        filterHandler?(eventName, indexName, filters)
     }
     
 }

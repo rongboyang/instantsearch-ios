@@ -27,16 +27,21 @@ import UIKit
     @IBInspectable public var index: String = Constants.Defaults.index
     @IBInspectable public var variant: String = Constants.Defaults.variant
     
+    @IBInspectable public var enableClickAnalytics: Bool
+    @IBInspectable public var clickEventName: String?
+    
     public var viewModel: RefinementMenuViewModelDelegate
     
   public override init(frame: CGRect, style: UITableView.Style) {
         viewModel = RefinementMenuViewModel()
+        enableClickAnalytics = Constants.Defaults.enableClickAnalytics
         super.init(frame: frame, style: style)
         viewModel.view = self
     }
     
     public required init?(coder aDecoder: NSCoder) {
         viewModel = RefinementMenuViewModel()
+        enableClickAnalytics = Constants.Defaults.enableClickAnalytics
         super.init(coder: aDecoder)
         viewModel.view = self
     }

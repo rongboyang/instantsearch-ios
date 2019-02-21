@@ -12,7 +12,7 @@ import InstantSearchCore
 /// ViewModel - View: FacetControlViewModelDelegate.
 ///
 /// ViewModel - Searcher: SearchableViewModel, RefinableDelegate, ResettableDelegate.
-@objcMembers public class FacetControlViewModel: NSObject, FacetControlViewModelDelegate, SearchableIndexViewModel {
+@objcMembers public class FacetControlViewModel: NSObject, FacetControlViewModelDelegate, SearchableIndexViewModel, RefinementViewModelTrackable {
     
     // MARK: - Properties
     private var _searcherId: SearcherId?
@@ -78,6 +78,18 @@ import InstantSearchCore
     
     public weak var view: FacetControlViewDelegate?
     
+    var trackableView: (AlgoliaIndexWidget & ClickAnalyticsTrackable)? {
+        return view
+    }
+    
+    // MARK: - Click Analytics
+    
+    public var enableClickAnalytics: Bool {
+        return view?.enableClickAnalytics ?? Constants.Defaults.enableClickAnalytics
+    }
+    
+    public weak var clickAnalyticsDelegate: ClickAnalyticsDelegate? = Insights.shared
+    
     override init() { }
     
     public init(view: FacetControlViewDelegate) {
@@ -93,6 +105,11 @@ import InstantSearchCore
     }
     
     public func updateFacet(oldValue: String, newValue: String, doSearch: Bool) {
+        
+        let facetRefinement = FacetRefinement(name: attribute, value: newValue, inclusive: inclusive)
+        let serializedFilter = facetRefinement.buildFilter()
+        trackClickOf(filters: [serializedFilter])
+        
         self.searcher.params.updateFacetRefinement(attribute: self.attribute,
                                                    oldValue: oldValue,
                                                    newValue: newValue,

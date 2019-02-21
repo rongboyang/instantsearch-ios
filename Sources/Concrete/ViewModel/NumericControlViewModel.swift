@@ -12,8 +12,8 @@ import InstantSearchCore
 /// ViewModel - View: NumericControlViewModelDelegate.
 ///
 /// ViewModel - Searcher: SearchableViewModel, RefinableDelegate, ResettableDelegate.
-@objcMembers public class NumericControlViewModel: NSObject, NumericControlViewModelDelegate, SearchableIndexViewModel {
-
+@objcMembers public class NumericControlViewModel: NSObject, NumericControlViewModelDelegate, SearchableIndexViewModel, RefinementViewModelTrackable {
+    
     // MARK: - Properties
     private var _searcherId: SearcherId?
 
@@ -93,7 +93,15 @@ import InstantSearchCore
     // MARK: - NumericControlViewModelDelegate
 
     public weak var view: NumericControlViewDelegate?
+
+    // MARK: - Click Analytics
     
+    var trackableView: (AlgoliaIndexWidget & ClickAnalyticsTrackable)? {
+        return view
+    }
+
+    public weak var clickAnalyticsDelegate: ClickAnalyticsDelegate? = Insights.shared
+
     override init() { }
     
     public init(view: NumericControlViewDelegate) {
@@ -101,6 +109,10 @@ import InstantSearchCore
     }
 
     public func updateNumeric(value: NSNumber, doSearch: Bool) {
+    
+        let numericRefinment = NumericRefinement(attribute, `operator`, value, inclusive: inclusive)
+        let serializedFilter = numericRefinment.buildFilter()
+        trackClickOf(filters: [serializedFilter])
         
         self.searcher.params.updateNumericRefinement(self.attribute, self.operator, value, inclusive: inclusive)
         
@@ -113,6 +125,7 @@ import InstantSearchCore
         self.searcher.params.removeNumericRefinement(self.attribute, self.operator, value, inclusive: inclusive)
         self.searcher.search()
     }
+    
 }
 
 // MARK: - RefinableDelegate
@@ -120,9 +133,11 @@ import InstantSearchCore
 extension NumericControlViewModel: RefinableDelegate {
 
     public func onRefinementChange(numerics: [NumericRefinement]) {
+        
         for numeric in numerics where numeric.op == `operator` && numeric.inclusive == inclusive {
             view?.set(value: numeric.value)
         }
+        
     }
 
 }

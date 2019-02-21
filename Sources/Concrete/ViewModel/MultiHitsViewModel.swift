@@ -44,10 +44,6 @@ import InstantSearchCore
 
     }
     
-    public var enableClickAnalytics: Bool {
-        return view?.enableClickAnalytics ?? Constants.Defaults.enableClickAnalytics
-    }
-    
     public var hitsPerSectionArray: [UInt] {
         return view?.hitsPerSectionArray ?? [Constants.Defaults.hitsPerPage]
     }
@@ -132,6 +128,13 @@ import InstantSearchCore
     // MARK: - HitsViewModelDelegate
     
     public var view: MultiHitsViewDelegate?
+    
+    // MARK: - Click Analytics
+
+    public var enableClickAnalytics: Bool {
+        return view?.enableClickAnalytics ?? Constants.Defaults.enableClickAnalytics
+    }
+    
     public weak var clickAnalyticsDelegate: ClickAnalyticsDelegate? = Insights.shared
 
     override init() { }

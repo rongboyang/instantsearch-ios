@@ -20,16 +20,21 @@ import UIKit
     @IBInspectable public var index: String = Constants.Defaults.index
     @IBInspectable public var variant: String = Constants.Defaults.variant
     
+    @IBInspectable public var enableClickAnalytics: Bool
+    @IBInspectable public var clickEventName: String?
+    
     public var viewModel: FacetControlViewModelDelegate
     
     public override init(frame: CGRect) {
         viewModel = FacetControlViewModel()
+        enableClickAnalytics = Constants.Defaults.enableClickAnalytics
         super.init(frame: frame)
         viewModel.view = self
     }
     
     public required init?(coder aDecoder: NSCoder) {
         viewModel = FacetControlViewModel()
+        enableClickAnalytics = Constants.Defaults.enableClickAnalytics
         super.init(coder: aDecoder)
         viewModel.view = self
     }

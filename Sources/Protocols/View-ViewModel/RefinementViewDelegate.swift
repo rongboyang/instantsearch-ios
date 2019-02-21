@@ -9,7 +9,7 @@
 import Foundation
 
 /// Protocol that defines the refinement view input methods and propreties.
-@objc public protocol RefinementViewDelegate: AlgoliaIndexWidget {
+@objc public protocol RefinementViewDelegate: AlgoliaIndexWidget, ClickAnalyticsTrackable {
     
     /// Attribute name of the control.
     var attribute: String { get set }

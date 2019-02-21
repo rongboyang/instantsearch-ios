@@ -42,10 +42,6 @@ import InstantSearchInsights
         return resultsManager.results?.queryID
     }
     
-    public var enableClickAnalytics: Bool {
-        return view?.enableClickAnalytics ?? Constants.Defaults.enableClickAnalytics
-    }
-
     // TODO: Those should be settable in the long run, same idea as when we do a private _var and var everywhere. Note that they can always create a virtual view that is not added to the UI, that has all the necessary properties set. 
     public var hitsPerPage: UInt {
         return view?.hitsPerPage ?? Constants.Defaults.hitsPerPage
@@ -67,9 +63,13 @@ import InstantSearchInsights
         return resultsManager.params
     }
     
-    public var hitClickEventName: String? {
-        return view?.hitClickEventName
+    // Click Analytics
+        
+    public var enableClickAnalytics: Bool {
+        return view?.enableClickAnalytics ?? Constants.Defaults.enableClickAnalytics
     }
+    
+    public weak var clickAnalyticsDelegate: ClickAnalyticsDelegate? = Insights.shared
   
     // MARK: - SearchableViewModel
     
@@ -98,7 +98,6 @@ import InstantSearchInsights
     // MARK: - HitsViewModelDelegate
     
     public weak var view: HitsViewDelegate?
-    public weak var clickAnalyticsDelegate: ClickAnalyticsDelegate? = Insights.shared
     
     override init() { }
     
@@ -138,7 +137,7 @@ import InstantSearchInsights
         if
             let queryID = queryID,
             let indexName = view?.index,
-            let eventName = view?.hitClickEventName,
+            let eventName = view?.clickEventName,
             let objectID = hit["objectID"] as? String {
             clickAnalyticsDelegate?.clickedAfterSearch(eventName: eventName,
                                                        indexName: indexName,

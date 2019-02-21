@@ -22,7 +22,7 @@ import UIKit
     @IBInspectable public var variant: String = Constants.Defaults.variant
     
     @IBInspectable public var enableClickAnalytics: Bool
-    @IBInspectable public var hitClickEventName: String?
+    @IBInspectable public var clickEventName: String?
     
     public var viewModel: HitsViewModelDelegate
     

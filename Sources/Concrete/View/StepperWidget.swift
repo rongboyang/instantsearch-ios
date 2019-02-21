@@ -21,6 +21,9 @@ import UIKit
     @IBInspectable public var index: String = Constants.Defaults.index
     @IBInspectable public var variant: String = Constants.Defaults.variant
     
+    @IBInspectable public var enableClickAnalytics: Bool
+    @IBInspectable public var clickEventName: String?
+    
     // Note: can't have optional Float because IBInspectable have to be bridgable to objc
     // and value types optional cannot be bridged.
     public var clearValue: NSNumber = 0
@@ -29,12 +32,14 @@ import UIKit
     
     public override init(frame: CGRect) {
         viewModel = NumericControlViewModel()
+        enableClickAnalytics = Constants.Defaults.enableClickAnalytics
         super.init(frame: frame)
         viewModel.view = self
     }
     
     public required init?(coder aDecoder: NSCoder) {
         viewModel = NumericControlViewModel()
+        enableClickAnalytics = Constants.Defaults.enableClickAnalytics
         super.init(coder: aDecoder)
         viewModel.view = self
     }

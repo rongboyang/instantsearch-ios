@@ -12,7 +12,7 @@ import InstantSearchCore
 /// ViewModel - View: RefinementMenuViewModelDelegate.
 ///
 /// ViewModel - Searcher: SearchableViewModel, ResultingDelegate, ResettableDelegate.
-@objcMembers public class RefinementMenuViewModel: NSObject, RefinementMenuViewModelDelegate, SearchableIndexViewModel {
+@objcMembers public class RefinementMenuViewModel: NSObject, RefinementMenuViewModelDelegate, SearchableIndexViewModel, RefinementViewModelTrackable {
     
     // MARK: - Properties
     private var _searcherId: SearcherId?
@@ -143,6 +143,18 @@ import InstantSearchCore
     
     public weak var view: RefinementMenuViewDelegate?
     
+    var trackableView: (AlgoliaIndexWidget & ClickAnalyticsTrackable)? {
+        return view
+    }
+    
+    // MARK: - Click Analytics
+    
+    public var enableClickAnalytics: Bool {
+        return view?.enableClickAnalytics ?? Constants.Defaults.enableClickAnalytics
+    }
+
+    public weak var clickAnalyticsDelegate: ClickAnalyticsDelegate? = Insights.shared
+
     override init() { }
     
     public init(view: RefinementMenuViewDelegate) {
@@ -164,6 +176,12 @@ import InstantSearchCore
     /// This simulated selecting a facet
     /// it will tggle the facet refinement, deselect the row and then execute a search
     public func didSelectRow(at indexPath: IndexPath) {
+        
+        if indexPath.row < facetResults.count {
+            let filterValue = facetForRow(at: indexPath).value
+            let serializedFilter = "\(attribute):\(filterValue)"
+            trackClickOf(filters: [serializedFilter])
+        }
 
         if isDisjunctive {
           searcher.params.setFacet(withName: attribute, disjunctive: true)
@@ -187,7 +205,9 @@ import InstantSearchCore
         }
         view?.deselectRow(at: indexPath)
         searcher.search()
+        
     }
+    
 }
 
 extension RefinementMenuViewModel: ResultingDelegate {
