@@ -1,3 +1,3 @@
 github "algolia/algoliasearch-client-swift" "504c39d62ad90e4ab1a48fd437ee1e6f6d233ac6"
-github "algolia/instantsearch-core-swift" "563174dffd0e08b619795553774723bc71916b2e"
+github "algolia/instantsearch-core-swift" "1b6e6af206b6dd48b3268fb368b422e2be1d4b03"
 github "spinach/Signals" "bba8de1b8e1725b52e94cf65570ab18a99fbf25b"
