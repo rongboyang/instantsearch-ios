@@ -1,2 +1,4 @@
-github "algolia/instantsearch-core-swift" ~> 4.0
-github "artman/Signals" ~> 6.0
+#git "file:///Users/vladislavfitc/Workspace/instantsearch-core-swift"
+github "algolia/instantsearch-core-swift" "v5"
+github "spinach/Signals" "fix-deployment-targets"
+#github "artman/Signals" ~> 6.0
