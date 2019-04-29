@@ -73,7 +73,11 @@ import Foundation
     public func search(query: String?) {
         for searcher in searchers {
             searcher.params.query = query
-            searcher.search()
+            if query == "" {
+                searcher.hits = [[String: Any]]()
+            } else {
+                searcher.search()
+            }
         }
     }
 }

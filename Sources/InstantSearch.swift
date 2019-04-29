@@ -315,7 +315,7 @@ import UIKit
     ///
     /// + Note: InstantSearch widgets are simply the components that implement the `AlgoliaWidget` marker protocol.
     @objc public func registerAllWidgets(in view: UIView) {
-        registerAllWidgets(in: view, doSearch: true)
+        registerAllWidgets(in: view, doSearch: false)
     }
     
     /// Register all InstantSearch widgets inside a particular view.
